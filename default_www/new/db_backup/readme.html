@@ -1,0 +1,15 @@
+Set the permissions of this folder to 0770 if the host allows it. No world read, write, or execute. 
+
+To use the backup database class, we need a DB Connection string from the conf file. 
+
+Backups run on a cron job when the server config is easy enough to set up (Modwest). 
+On others it can be done manually or will be performed when a user logs in. 
+
+- - -
+To use, do this: 
+
+$params = @parse_url(MYACTIVERECORD_CONNECTION_STR) 
+	or trigger_error("MyActiveRecord::Connection() - could not parse connection string: ".MYACTIVERECORD_CONNECTION_STR, E_USER_ERROR);
+        
+$backupDatabase = new Backup_Database( $params['host'], $params['user'], $params['pass'], substr( $params['path'], 1 ) );
+echo $backupDatabase->backupDatabase('../db_backup', 5) ? 'OK' : 'FAILED';

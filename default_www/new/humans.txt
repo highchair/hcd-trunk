@@ -1,0 +1,21 @@
+/* the humans responsible & colophon */
+/* humanstxt.org */
+
+
+/* TEAM */
+	Designer and Lead Developer: J. Hogue
+	Powered by the HCd>CMS system, created by J. Hogue, Jamie Re and Peter Landry
+	Company: Highchair designhaus
+	Site: http://www.highchairdesign.com
+	Twitter: @artinruins
+	Location: Providence, RI, USA
+
+/* THANKS */
+	[Client info]
+	Paul Irish (and all) for HTML Boilerplate:			      www.html5boilerplate.com
+	JS for feature detection and progressive enhancements:	  www.modernizr.com
+
+/* SITE */
+	Standards: HTML5, CSS3, W3C
+	Components: jQuery, jCarouselLite, jLightbox
+	Software: Made on Macs using Coda, Compass (SCSS), Adobe CS and Terminal

@@ -1,0 +1,49 @@
+/* ! ///- - - Stuff for the Mail Blaster section, not already defined/controlled by something else - - -/// */
+	#mail_blaster .submitbutton, #mail_blaster .submitbuttonsmall {
+    	display: inline-block; 
+    	margin: .75em 0; 
+    	text-decoration: none; 
+	}
+	#mail_blaster .submitbutton {
+    	font-size: 123.5%; 
+	}
+	#mail_blaster .submitbutton.smaller {
+    	font-size: 115%; 
+    	padding: .25em .75em .2em;
+	}
+	#mail_blaster .clickme {
+    	font-weight: bold; 
+    	color: #cb1300; 
+	}
+	#mail_blaster h2 { color: #222; padding: 0 0 1em 0; }
+		#mail_blaster h2 big { font-size: 1.4em; }
+	#select_list, #blast_options { 
+	    color: #333; 
+	    border: 1px solid #ac9; /* light green */
+		background-color: #efe; /* super light green */
+	    padding: 1em; 
+	    margin-bottom: .5em; 
+    }
+	#mail_blaster #featured_event_option, 
+	#mail_blaster #custom_text_option, 
+	#mail_blaster #event_list_option {
+		margin: 0 0 .75em 1.25em; 
+		padding: .75em 1em; 
+		background-color: #fff; 
+	}
+	#mail_blaster .blast_notice { 
+		margin: -.5em 0 1em;
+		background-color: #ff7; 
+		border: 1px solid #fe3;
+		font-weight: bold; 
+		color: #cb1300; /* HCd red */
+		padding: .5em;
+	}
+		#mail_blaster .blast_notice small { font-size: .88em; font-weight: normal; }
+	#mail_blaster label.inline { display: inline; }
+		#mail_blaster input#up_event_number, #mail_blaster input#on_event_number { width: 4em; }
+	#mail_blaster .mail_template {
+		padding: 1em;
+		border: 1px solid #cb1300; 
+	}
+		#mail_blaster .mail_template h1 { border: none; }

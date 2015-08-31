@@ -1,0 +1,1 @@
+<?php $blog_templates = array( 'default' ); ?>

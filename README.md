@@ -1,2 +1,2 @@
 # hcd-trunk
-CMS Framework folder
+Framework folder

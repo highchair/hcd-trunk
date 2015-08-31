@@ -1,0 +1,16 @@
+User-agent: *
+Disallow: /gdinfo.php
+Disallow: /lib/
+Disallow: /admin/
+
+User-agent: Googlebot
+Disallow: /*.htm$
+
+User-agent: Googlebot-Image
+Disallow: /*.gif$
+Disallow: /*.jpg$
+
+Disallow: https://www.highchairdesign.com/*
+Sitemap: http://www.highchairdesign.com/google/sitemap/
+
+# updated 10-24-2010

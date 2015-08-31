@@ -1,0 +1,4 @@
+/* ! - - - Subpage Elements - - - */
+	/* Extra stuff for the List Areas/Pages page */
+	.sub_drag li.sub_page strong { width: 280px; }
+	.sub_drag li.sub_page { padding-left: 20px; background: top left no-repeat url("../cssimages/subpage-arrow.png") transparent; }
