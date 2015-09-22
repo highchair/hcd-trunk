@@ -29,47 +29,47 @@ function displayFlash()
  * Supported levels: error, warning, success, notice
  */
 function user_feedback( $level='error', $message ) {
-    
-    if ( 
-        $level == 'error' or 
-        $level == 'warning' or 
-        $level == 'success' or 
-        $level == 'notice' ) {
-        
-        return '<div class="feedback feedback__'.$level.'"><p><strong class="feedback--snipe">'.ucwords($level).'</strong> <span class="feedback--message">'.$message.'</span></p></div>'; 
-    
-    } else { 
-        return false; 
-    }
+
+	if ( 
+		$level == 'error' or 
+		$level == 'warning' or 
+		$level == 'success' or 
+		$level == 'notice' ) {
+		
+		return '<div class="feedback feedback__'.$level.'"><p><strong class="feedback--snipe">'.ucwords($level).'</strong> <span class="feedback--message">'.$message.'</span></p></div>'; 
+
+	} else { 
+		return false; 
+	}
 }
 
 
 /* Context? Example? */
 function throwError( $message )
 {
-    return print_r(error_get_last()).'<br /><strong>'.$message.'</strong>'; 
+	return print_r(error_get_last()).'<br /><strong>'.$message.'</strong>'; 
 }
 
 function sql_debug( $query ) 
 {
-    return "A MySQL error has occurred.<br />Query: " . $query . "<br /> Error: (" . mysql_errno() . ") " . mysql_error(); 
+	return "A MySQL error has occurred.<br />Query: " . $query . "<br /> Error: (" . mysql_errno() . ") " . mysql_error(); 
 }
 
 function find_db_column( $table, $column )
 {
-    // Better return values than SHOW COLUMNS but mysql_ commands are being depreciated. Migrate to mysqli_ commands instead. 
-    $connectstr = @parse_url(MYACTIVERECORD_CONNECTION_STR) 
-	    or trigger_error("MyActiveRecord::Connection() - could not parse connection string: ".MYACTIVERECORD_CONNECTION_STR, E_USER_ERROR);
-    $dbname = trim($connectstr['path'],' /');  
-    
-    $fields = mysql_list_fields( $dbname, $table );
-    $columns = mysql_num_fields( $fields );
-    for ( $i = 0; $i < $columns; $i++ ) {
-        $field_array[] = mysql_field_name( $fields, $i );
-    }
-    if ( in_array( $column, $field_array ) ) {
-        return true;
-    } else { return false; }
+	// Better return values than SHOW COLUMNS but mysql_ commands are being depreciated. Migrate to mysqli_ commands instead. 
+	$connectstr = @parse_url(MYACTIVERECORD_CONNECTION_STR) 
+		or trigger_error("MyActiveRecord::Connection() - could not parse connection string: ".MYACTIVERECORD_CONNECTION_STR, E_USER_ERROR);
+	$dbname = trim($connectstr['path'],' /');  
+
+	$fields = mysql_list_fields( $dbname, $table );
+	$columns = mysql_num_fields( $fields );
+	for ( $i = 0; $i < $columns; $i++ ) {
+		$field_array[] = mysql_field_name( $fields, $i );
+	}
+	if ( in_array( $column, $field_array ) ) {
+		return true;
+	} else { return false; }
 }
 
 function getPostValue($key)
@@ -166,12 +166,12 @@ function reload()
 function get_link( $url )
 {
 	$link_url = $url;
-    
-    // if the url is absolute (begins with http), leave it alone
-    if( substr($link_url,0,4) == "http" )
-    {
-        return $link_url;
-    }
+
+	// if the url is absolute (begins with http), leave it alone
+	if( substr($link_url,0,4) == "http" )
+	{
+		return $link_url;
+	}
 	if( !REWRITE_URLS )
 	{
 		$link_url = BASEHREF . "?id={$link_url}";
@@ -214,8 +214,8 @@ function slug( $str )
 
 function unslug( $str )
 {
-    // not perfect, but it'll do
-    $str = trim($str);
+	// not perfect, but it'll do
+	$str = trim($str);
 	$str = preg_replace( '/-+/', " ", $str );
 	$str = ucwords($str); 
 	return $str;
@@ -269,22 +269,22 @@ function parseDate($date, $format = "Y-m-d H:i:s")
 }
 
 function is_validemail( $emailtocheck ) {
-    /* 
-     * "Simple" regex allows something like hi+sub@whim.gallery or hi@whim.co.uk
+	/* 
+	 * "Simple" regex allows something like hi+sub@whim.gallery or hi@whim.co.uk
 	 * Username: allow chars a-z 0-9 _-+ 
 	 * Hostname: allow chars a-z 0-9 _-  
 	 * TLD: minimum of 2 and then up to 24 chars. Does not allow non alpha chars (and may not need numbers, but we allow it)
 	 * This isn't about making sure emails are valid, but simply adds a link to an email that might be
 	 * The same regex is used in replacement for the convert emails in content function
 	 */
-    return ( preg_match("([A-Za-z0-9_\-\+.]+[@]+[A-Za-z0-9_\-\.]+[.]+[A-Za-z0-9]{2,24})", $emailtocheck) ) ? true : false; 
+	return ( preg_match("([A-Za-z0-9_\-\+.]+[@]+[A-Za-z0-9_\-\.]+[.]+[A-Za-z0-9]{2,24})", $emailtocheck) ) ? true : false; 
 }
 
 function getFullMonthName($month)
 {
-    if (substr($month, 0, 1) == "0") { $month = substr($month, 1, 1); }
-    $monthName = array("there is no zero month","January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December");
-    return $monthName[$month];
+	if (substr($month, 0, 1) == "0") { $month = substr($month, 1, 1); }
+	$monthName = array("there is no zero month","January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December");
+	return $monthName[$month];
 }
 
 function chopText( $content, $charcount, $stopchar = " " ) 
@@ -335,14 +335,14 @@ function scrub_HCd_Tags($content_to_display)
 
 function scrub_url_protocol( $url ) 
 {
-    // Works on any URL with '//' in it: http://, https://, ftp://, etc…
-    $position = strpos($url, '//'); 
-    if ( $position ) {
-        $newurl = substr( $url, $position+2 );
-        return rtrim( $newurl, '/' ); 
-    } else {
-        return $url; 
-    }
+	// Works on any URL with '//' in it: http://, https://, ftp://, etc…
+	$position = strpos($url, '//'); 
+	if ( $position ) {
+		$newurl = substr( $url, $position+2 );
+		return rtrim( $newurl, '/' ); 
+	} else {
+		return $url; 
+	}
 }
 
 // ! IMAGE FUNCTIONS
@@ -366,7 +366,7 @@ function getFileExtension($fileName)
 
 function getFileName($fileName)
 {
-    return pathinfo($fileName, PATHINFO_FILENAME); 
+	return pathinfo($fileName, PATHINFO_FILENAME); 
 }
 
 
@@ -413,7 +413,7 @@ function LoginRequired( $login_page="/admin/login/", $required_roles=array() )
 function HCd_debug() {
 	if ( HCD_DEBUG ) {
 		$user = Users::GetCurrentUser(); 
-		if ( isset( $user ) && endsWith( $user->email, 'highchairdesign.com' ) ) {
+		if ( is_object( $user ) && strpos( $user->email, 'highchairdesign.com' ) !== false ) {
 			return true; 
 		} else {
 			return false; 
@@ -424,26 +424,26 @@ function HCd_debug() {
 }
 
 function debug_block( $message ) {
-    
-    $debug = ""; 
-    
-    if ( HCd_debug() ) {
-        $debug .= '<div class="debug-block">'; 
-        $debug .=  '<span class="debug-feedback failed">'.$message.'</span>'; 
-        $debug .=  '</div>'; 
-    }
-    echo $debug; 
+
+	$debug = ""; 
+
+	if ( HCd_debug() ) {
+		$debug .= '<div class="debug-block">'; 
+		$debug .=  '<span class="debug-feedback failed">'.$message.'</span>'; 
+		$debug .=  '</div>'; 
+	}
+	echo $debug; 
 }
 
 // Not sure what these are
 function request_method()
 {
-    return $_SERVER['REQUEST_METHOD'];
+	return $_SERVER['REQUEST_METHOD'];
 }
 
 function request_is($method="")
 {
-    return strcasecmp($method, request_method()) == 0;
+	return strcasecmp($method, request_method()) == 0;
 }
 
 // ! Number manipulation
@@ -458,19 +458,13 @@ function is_odd($number)
 	}
 }
 
-// ! String Manipulation
-function endsWith($haystack, $needle) {
-    // search forward starting from end minus needle length characters
-    return $needle === "" || strpos($haystack, $needle, strlen($haystack) - strlen($needle)) !== FALSE;
-}
-
 // ! Array manipulation
 // array_diff is a PHP function that doesn't quite work the way you think it might. Here is one that does. 
 function array_difference($array_a, $array_b) 
 {
-    $union_array = array_merge($array_a, $array_b);
-    $intersect_array = array_intersect($array_a, $array_b);
-    return array_diff($union_array, $intersect_array); 
+	$union_array = array_merge($array_a, $array_b);
+	$intersect_array = array_intersect($array_a, $array_b);
+	return array_diff($union_array, $intersect_array); 
 }
 
 /*
@@ -481,10 +475,10 @@ function array_difference($array_a, $array_b)
  * @param enum $order asc or desc
  */
 function array_sortoncol ( &$array, $column=0, $order="ASC" ) {
-    $oper = ($order == "ASC")?">":"<";
-    if( !is_array($array) ) return;
-    usort( $array, create_function('$a,$b',"return (\$a['$column'] $oper \$b['$column']);") ); 
-    reset( $array );
+	$oper = ($order == "ASC")?">":"<";
+	if( !is_array($array) ) return;
+	usort( $array, create_function('$a,$b',"return (\$a['$column'] $oper \$b['$column']);") ); 
+	reset( $array );
 }
 
 // ! Mail functions
