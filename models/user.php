@@ -8,26 +8,28 @@ class Users extends ModelBase
 		 */
 		return MyActiveRecord::FindAll('Users', NULL, " id ASC");
 	}
-	
+
 	function FindByEmail($email)
 	{
 		//die("SELECT p.* FROM pages p INNER JOIN areas_pages ap ON ap.pages_id = p.id INNER JOIN areas a ON a.id = ap.areas_id WHERE p.name like '" . $name . "' AND a.name like '" . $area->name . "' ORDER BY display_order, id ASC");
 		return array_shift(MyActiveRecord::FindBySql('Users', "SELECT * FROM users WHERE email = '${email}'"));
 	}
+
 	function FindById($id)
 	{
 		return MyActiveRecord::FindById('Users', $id);
 	}
+
 	function FindNonAdmins()
 	{
 		return MyActiveRecord::FindBySql('Users', "SELECT * FROM users WHERE is_admin = 0");
 	}
-	
+
 	function FindWithRole($role = "")
 	{
 		return MyActiveRecord::FindBySql('Users', "SELECT * FROM users WHERE is_$role = 1");
 	}
-	
+
 	function GetCurrentUser()
 	{
 		if( !isset($_SESSION[LOGIN_TICKET_NAME]) ) {
@@ -40,33 +42,33 @@ class Users extends ModelBase
 		}
 		return $user;
 	}
-	
+
 	function hash_with_salt($password)
 	{
 		return sha1(SHA_SALT . $password);
 	}
-		
+
 	function authenticate($password)
 	{
 		return $this->password == $this->hash_with_salt($password);
 	}
-	
+
 	function set_ticket()
 	{
 		unset($_SESSION[LOGIN_TICKET_NAME]);
 		$_SESSION[LOGIN_TICKET_NAME] = $this->id;	
 	}
-	
+
 	function ClearCurrentUser()
 	{
 		unset($_SESSION[LOGIN_TICKET_NAME]);	
 	}
-	
+
 	function hash_password()
 	{
 		$this->password = $this->hash_with_salt($this->password);
 	}
-	
+
 	function SetRedirect()
 	{
 		$redirect_key = "REDIRECT_ON_LOGIN";
@@ -77,7 +79,7 @@ class Users extends ModelBase
 		
 		$_SESSION[$redirect_key] = "/" . implode("/", $GLOBALS["REQUEST_PARAMS"]);
 	}
-	
+
 	function GetRedirect($default = "/")
 	{
 		$redirect_key = "REDIRECT_ON_LOGIN";
@@ -95,18 +97,21 @@ class Users extends ModelBase
 		unset($_SESSION[$redirect_key]);
 		return($redirect);
 	}
-	
+
 	function has_role($role = "")
 	{
-		if($this->is_admin)
-		{
+		if($this->is_admin) {
 			return true;
 		}
 		$role_to_check = strtolower($role);
 		$role_key_name = "is_$role_to_check";
-		return $this->$role_key_name == 1; 
+		if ( $this->$role_key_name ) {
+			return true;
+		} else { 
+			return false;
+		} 
 	}
-	
+
 	function send_newuser_email( $unsaltedpass )
 	{
 		$email_message = "Hello new user, \r\n
