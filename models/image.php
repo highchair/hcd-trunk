@@ -77,51 +77,51 @@ class Images extends ModelBase
 		return MyActiveRecord::FindBySQL( 'Images', "SELECT * FROM images ORDER BY id DESC $max" ); 
 	}
 	
-	function howManyReferencing() 
-	{
-		//$anyImagePattern = "/([>{2}<{2}])$this->name([>{2}<{2}])/";
-		
+	function howManyReferencing() {
 		$pagecount = $eventcount = $entrycount = 0;
-		
-		$pages = Pages::FindAll(); 
-		if ( CALENDAR_INSTALL ) 
+		$placement_descriptions = '';
+
+		$pages = Pages::FindAll();
+		if ( CALENDAR_INSTALL )
 			$events = Events::FindAll();
 		if ( BLOG_INSTALL )
 			$entries = Blog_Entries::FindAll();
-		
+
 		$pattern_recog = array("left" => array("{","{"), "right" => array("}","}"), "reg" => array("{","}"));
-		
+
 		foreach ($pattern_recog as $float => $direction) {
-			$imagePattern = "*".$direction[0]."{2}([A-Za-z0-9_ \-]+)".$direction[1]."{2}*";
-		
+			$imagePattern = "*".$direction[0]."{2}(".$this->name.")".$direction[1]."{2}*";
+
 			foreach( $pages as $page ) {
-				$imageIds = getFilterIds( $page->content, $imagePattern);
-				
-				print_r($imageIds); 
-				
-				if ( count($imageIds) >= 1 )
-					$pagecount++; 
+				$imageIds = getFilterIds($page->content, $imagePattern);
+
+				//print_r($imageIds);
+
+				if ( count($imageIds) >= 1 ) {
+					$pagecount++;
+					$placement_descriptions .= '<a href="'.get_link('admin/edit_page/'.$page->id).'">'.$page->display_name.'</a>, ';
+				}
 			}
 			if ( CALENDAR_INSTALL ) {
-				foreach( $events as $page ) {
-					$imageIds = getFilterIds( $page->description, $imagePattern);
-					if ( is_array($imageIds) )
-						$eventcount++; 
+				foreach( $events as $event ) {
+					$imageIds = getFilterIds( $event->description, $imagePattern);
+					if ( count($imageIds) >= 1 )
+						$eventcount++;
 				}
 			}
 			if ( BLOG_INSTALL ) {
-				foreach( $entries as $page ) {
-					$imageIds = getFilterIds( $page->content, $imagePattern);
-					if ( is_array($imageIds) )
-						$entrycount++; 
+				foreach( $entries as $entry ) {
+					$imageIds = getFilterIds( $entry->content, $imagePattern);
+					if ( count($imageIds) >= 1 )
+						$entrycount++;
 				}
 			}
 		}
 		$message = $pagecount." Pages";
-		if ( CALENDAR_INSTALL ) $message .= ", ".$eventcount." Events";  
-		if ( BLOG_INSTALL ) $message .= ", ".$entrycount." Blog Entries"; 
-		
-		return $message; 
+		if ( CALENDAR_INSTALL ) $message .= ", ".$eventcount." Events";
+		if ( BLOG_INSTALL ) $message .= ", ".$entrycount." Blog Entries";
+
+		return $message . ' | ' . $placement_descriptions;
 	}
 	
 	function numberOfPagesReferencing()
