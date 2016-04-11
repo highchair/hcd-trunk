@@ -33,8 +33,8 @@ setConfValue( 'MYACTIVERECORD_CONNECTION_STR', 'mysql://username:password@db2.mo
 setConfValue( 'LOGIN_TICKET_NAME', 'userticket' );
 setConfValue( 'SHA_SALT', 'FYDS*FY&*(987fs98(*F&SD))' );
 setConfValue( 'SITE_NAME', 'New Website' );
-setConfValue( 'SITE_URL', 'www.example.com' ); // Do not start this with a http://
 setConfValue( 'SITE_NON_WWW', 'example.com' ); // Do not start this with a http://
+setConfValue( 'SITE_URL', 'www.'.SITE_NON_WWW ); // Do not start this with a http://
 setConfValue( 'SERVER_INCLUDES_ROOT', '/htdocs/' ); // should be the root path to the content/snippets folder... used when files are included
 setConfValue( 'SERVER_DBBACKUP_ROOT', SERVER_INCLUDES_ROOT.'www/db_backup/' ); 
 setConfValue( 'SERVER_DOCUMENTS_ROOT', SERVER_INCLUDES_ROOT.'www/documents/' );
